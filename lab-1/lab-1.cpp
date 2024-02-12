@@ -25,13 +25,17 @@ int main() {
             // Проверка корректности ввода числа с десятичным разделителем
             bool hasDecimal = false;
             bool isValid = std::all_of(input.begin(), input.end(), [&](char c) {
-                if (std::isdigit(c)) return true;
+                if (std::isdigit(c)) {
+                    return true;
+                }
+
                 else if (c == ',' || c == '-' && !hasDecimal) {
                     hasDecimal = true;
                     return true;
                 }
+
                 return false;
-                });
+            });
 
             if (isValid) {
                 try {
@@ -47,6 +51,11 @@ int main() {
                     else if (i == 0 && vars[0] < 0) {
                         std::cout << "Ошибка: отрицательное значение под квадратным корнем! Пожалуйста, введите неотрицательное значение для x!" << std::endl;
                         validInput = false; // устанавливаем флаг в false, чтобы пройти цикл ввода для y еще раз
+                    }
+
+                    else if (vars[0] > std::numeric_limits<double>::max()) {
+                        std::cerr << "Ошибка: переполнение переменной. Попробуйте ввести меньшее значение!" << std::endl;
+                        validInput = false;
                     }
 
                     
